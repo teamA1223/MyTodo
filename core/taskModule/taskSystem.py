@@ -14,16 +14,6 @@ class TaskSystem:
         self.__tasks.append(task)
         return task
 
-    def list_all(self):
-        """列出所有任务"""
-        if not self.__tasks:
-            print("当前没有任务")
-            return
-
-        for i, task in enumerate(self.__tasks, start=1):
-            status = "已完成" if task.is_completed else "未完成"
-            print(f"{i}. {task.title} [{status}]")
-
     # 返回本身（引用）,内部使用，修改数据请走专用方法
     def _get_by_index(self, idx: int) -> Task:
         if 0 <= idx <= len(self.__tasks)-1:

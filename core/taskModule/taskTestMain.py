@@ -7,6 +7,19 @@ from task import Task
 from taskSystem import TaskSystem
 
 
+def print_all_tasks(system: TaskSystem):
+    """打印所有任务"""
+    count = system.get_task_count()
+    if count == 0:
+        print("当前没有任务")
+        return
+
+    for i in range(count):
+        task = system.get_by_index(i)
+        status = "已完成" if task.is_completed else "未完成"
+        print(f"{i + 1}. {task.title} [{status}]")
+
+
 def test_add():
     """测试：增 - 添加任务"""
     print("=== 测试1：增 - 添加任务 ===")
@@ -18,7 +31,7 @@ def test_add():
 
     print(f"[OK] 添加了3个任务")
     print(f"[OK] 任务总数: {system.get_task_count()}")
-    system.list_all()
+    print_all_tasks(system)
     print()
 
 
@@ -51,14 +64,14 @@ def test_update():
     system.add("另一个任务")
 
     print("修改前:")
-    system.list_all()
+    print_all_tasks(system)
 
     # 标记第1个任务为已完成（注意：索引从0开始）
     result = system.update_completed(0, True)
     print(f"\n[OK] 更新结果: {result}")
 
     print("\n修改后:")
-    system.list_all()
+    print_all_tasks(system)
     print()
 
 
@@ -72,7 +85,7 @@ def test_delete():
     system.add("任务3")
 
     print("删除前:")
-    system.list_all()
+    print_all_tasks(system)
     print(f"任务总数: {system.get_task_count()}")
 
     # 删除索引1（第2个任务）
@@ -80,7 +93,7 @@ def test_delete():
     print(f"\n[OK] 删除索引1，结果: {result}")
 
     print("\n删除后:")
-    system.list_all()
+    print_all_tasks(system)
     print(f"任务总数: {system.get_task_count()}")
     print()
 
@@ -89,7 +102,7 @@ def test_empty_list():
     """测试：空列表"""
     print("=== 测试5：空列表 ===")
     system = TaskSystem()
-    system.list_all()
+    print_all_tasks(system)
     print()
 
 

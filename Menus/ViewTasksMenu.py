@@ -22,7 +22,7 @@ class ViewTasksMenu(Menu):
             print("任务清单")
             print("="*50 + "\n")
 
-            self.__task_system.list_all()
+            self.__print_all_tasks()
 
             print("\n" + "="*50)
             return 0
@@ -30,3 +30,15 @@ class ViewTasksMenu(Menu):
         except Exception as e:
             print(f"[错误] 查看失败: {e}")
             return -1
+
+    def __print_all_tasks(self):
+        """列出所有任务"""
+        count = self.__task_system.get_task_count()
+        if count == 0:
+            print("当前没有任务")
+            return
+
+        for i in range(count):
+            task = self.__task_system.get_by_index(i)
+            status = "已完成" if task.is_completed else "未完成"
+            print(f"{i + 1}. {task.title} [{status}]")
